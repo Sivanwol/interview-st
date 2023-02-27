@@ -44,5 +44,5 @@ model reservationSlots {
   cancelAt   DateTime?
 
   table      RestTable @relation(fields: [tableId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  slots      Slots @relation(fields: [slotId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  slot      Slots @relation(fields: [slotId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

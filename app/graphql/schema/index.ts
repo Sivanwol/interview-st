@@ -12,6 +12,7 @@ import {
 import { t } from "./type-factory";
 import { CreateRestTableQuery, RestTable } from "~/graphql/types";
 import { OrderDirectionEnum, OrderRestTableByEnum, RestTableType } from "~/graphql/schema/restTable";
+import { CancelReservationResultType, CreateReservationResultType } from "~/graphql/schema/reservations";
 
 const Query = t.queryType({
   fields: () => [
@@ -45,10 +46,22 @@ const Mutation = t.mutationType({
       name: "createReservation",
       args: {
         tableId: t.arg(t.NonNullInput(t.ID)),
+        slotId: t.arg(t.NonNullInput(t.ID))
       },
-      type: CreateRestTableQuery,
+      type: CreateReservationResultType,
       async resolve(_root, args, ctx) {
-        return;
+        return null;
+      },
+    }),
+    t.field({
+      name: "cancelReservation",
+      args: {
+        tableId: t.arg(t.NonNullInput(t.ID)),
+        slotId: t.arg(t.NonNullInput(t.ID))
+      },
+      type: CancelReservationResultType,
+      async resolve(_root, args, ctx) {
+        return null;
       },
     }),
   ],

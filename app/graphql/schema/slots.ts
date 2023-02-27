@@ -4,7 +4,7 @@ import { t } from "./type-factory";
 import { RestTableType } from "~/graphql/schema/restTable";
 import moment from "moment";
 
-export const SlotsType = t.objectType<Slots & { table: RestTable }>({
+export const SlotsType = t.objectType<Slots>({
   name: "slots",
   fields: () => [
     t.field({ name: "id", type: t.NonNull(t.ID) }),
@@ -14,7 +14,6 @@ export const SlotsType = t.objectType<Slots & { table: RestTable }>({
         return moment(reservationAt).format("dd-mm-YYYY H:M:s");
       }
     }),
-    t.field({ name: "table", type: t.NonNull(RestTableType) })
   ]
 });
 

@@ -4,8 +4,6 @@ import {
   getLoaderFunction,
 } from "remix-graphql/index.server";
 import { schema } from "~/graphql/schema";
-import { RestTableType } from "~/graphql/schema/restTable";
-
 function hasStatus(error: any): error is { status: number } {
   return (
     Boolean(error) &&
@@ -13,6 +11,8 @@ function hasStatus(error: any): error is { status: number } {
     typeof error.status === "number"
   );
 }
+
+
 
 const deriveStatusCode: DeriveStatusCodeFunction = (result, defaultStatus) =>
   result.errors
@@ -25,6 +25,6 @@ const deriveStatusCode: DeriveStatusCodeFunction = (result, defaultStatus) =>
     )
     : defaultStatus;
 
-export const loader = getLoaderFunction({ schema, deriveStatusCode });
+export const loader = getLoaderFunction({ schema, context: {}, deriveStatusCode });
 
-export const action = getActionFunction({ schema, deriveStatusCode });
+export const action = getActionFunction({ schema, deriveStatusCode });;
