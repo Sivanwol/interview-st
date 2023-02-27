@@ -1,0 +1,48 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum tableType {
+  Bar
+  SmallTable
+  MedTable
+  LargeTable
+}
+
+model RestTable {
+  id          String    @id @default(cuid())
+  type        tableType @default(Bar)
+  size        Int
+  holdTableAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  slots       Slots[]
+  reservations reservationSlots[]
+}
+
+model Slots {
+  id         String    @id @default(cuid())
+  tableId    String
+  total Int  @default(1)
+  reservationAt DateTime?
+  table      RestTable @relation(fields: [tableId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  reservations reservationSlots[]
+}
+
+model reservationSlots {
+  id         String    @id @default(cuid())
+  tableId    String
+  slotId     String
+  registerAt DateTime  @default(now())
+  sitAt      DateTime?
+  leaveAt    DateTime?
+  cancelAt   DateTime?
+
+  table      RestTable @relation(fields: [tableId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  slots      Slots @relation(fields: [slotId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
