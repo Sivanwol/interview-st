@@ -1,12 +1,11 @@
-import { Link } from "@remix-run/react";
+import { Card, CardBody } from "@chakra-ui/card";
+import { Text } from "@chakra-ui/react";
 
-export default function NoteIndexPage() {
+export default function TableIndexPage() {
   return (
-    <p>
-      No note selected. Select a note on the left, or{" "}
-      <Link to="new" className="text-blue-500 underline">
-        create a new note.
-      </Link>
-    </p>
-  );
+    <Card>
+      <CardBody>
+        <Text>View a summary of all your customers over the last month.</Text>
+      </CardBody>
+    </Card>);
 }
