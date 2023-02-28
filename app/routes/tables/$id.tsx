@@ -8,6 +8,7 @@ import { Card, CardBody, CardFooter, CardHeader } from "@chakra-ui/card";
 import {
   Button,
   ButtonGroup,
+  Center,
   Divider,
   Heading,
   Table,
@@ -43,7 +44,9 @@ export default function ReservationsListPage() {
   return (
     <Card>
       <CardHeader>
-        <Heading size="md">Table Reservations</Heading>
+        <Center>
+          <Heading size="md">Table Reservations</Heading>
+        </Center>
       </CardHeader>
       <CardBody>
       </CardBody>
@@ -57,7 +60,8 @@ export default function ReservationsListPage() {
             </Tr>
           </Thead>
           <Tbody>
-            {data?.reservations?.map((entity: any) => (
+
+            {data?.reservations?.length > 0 ? data?.reservations?.map((entity: any) => (
               <Tr>
                 <Td>{moment(entity.registerAt).format("MMMM Do YYYY, h:mm:ss a")}</Td>
                 <Td>{moment(entity.sitAt).format("MMMM Do YYYY, h:mm:ss a")}</Td>
@@ -66,14 +70,14 @@ export default function ReservationsListPage() {
                     Cancel
                   </Button>
                 </Td>
-              </Tr>))}
+              </Tr>)) : <Tr><Td colSpan={3}> <Center>No Reservations not found</Center></Td></Tr>}
           </Tbody>
         </Table>
       </TableContainer>
       <Divider h={50} />
       <CardFooter>
         <ButtonGroup spacing="2">
-          <Link to={"/tables"}>
+          <Link to={"/tables/"}>
             <Button variant="solid" colorScheme="blue">
               Back
             </Button>

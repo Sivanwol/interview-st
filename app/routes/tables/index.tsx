@@ -1,5 +1,5 @@
 import { Card, CardBody } from "@chakra-ui/card";
-import { Grid, GridItem, Text } from "@chakra-ui/react";
+import { Center, Grid, GridItem, Heading } from "@chakra-ui/react";
 import { Outlet, useLoaderData, useRevalidator } from "@remix-run/react";
 import { TableItem } from "~/components/tableItem";
 import { useEffect, useRef, useState } from "react";
@@ -37,13 +37,13 @@ export default function TableIndexPage() {
     <main className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
       <Card>
         <CardBody>
-          <Text>Table List</Text>
+          <Center><Heading size="md">Table List</Heading></Center>
           <Grid templateColumns="repeat(5, 1fr)" gap={6}>
 
-            {(tableList?.tables?.length > 0) && tableList.tables.map((item: any) => (
+            {(tableList?.tables?.length > 0) ? tableList.tables.map((item: any) => (
               <GridItem w="100%" h="150" bg="blue.500" key={item.id}>
                 <TableItem item={item} />
-              </GridItem>))}
+              </GridItem>)) : <GridItem colSpan={5}><Center>No Tables</Center></GridItem>}
 
           </Grid>
           <div>
