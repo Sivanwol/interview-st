@@ -1,5 +1,16 @@
-import { Button, ListItem, UnorderedList } from "@chakra-ui/react";
-import { Link } from "@remix-run/react";
+import {
+  Button,
+  ListItem,
+  Modal,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  UnorderedList,
+  useDisclosure
+} from "@chakra-ui/react";
+import { Link, useFetcher } from "@remix-run/react";
 import { tables } from ".prisma/client";
 
 export function TableItem({
@@ -7,7 +18,20 @@ export function TableItem({
                           }: {
   item: Pick<tables, "id" | "size" | "type">
 }) {
-  return (
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const fetcher = useFetcher();
+
+  const onClick = () => {
+    fetcher.submit({
+      id: item.id
+    }, {
+      action: `/tables/new`,
+      method: "post"
+    });
+    onClose();
+  };
+  return (<>
+
     <UnorderedList>
       <ListItem>Table Type {item.type}</ListItem>
       <ListItem>Table Size {item.size}</ListItem>
@@ -15,8 +39,23 @@ export function TableItem({
         Reservation List
       </Button>
       </Link>
-      <Button variant="ghost">
+      <Button variant="ghost" onClick={onOpen}>
         Make Reservation
       </Button>
-    </UnorderedList>);
+    </UnorderedList>
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Create Reservation</ModalHeader>
+        <ModalCloseButton />
+
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={onClose}>
+            Close
+          </Button>
+          <Button variant="ghost" onClick={onClick}>Submit</Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  </>);
 };
