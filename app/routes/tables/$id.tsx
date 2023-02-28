@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 import { LoaderArgs } from "@remix-run/server-runtime";
-import { Link, useCatch, useLoaderData } from "@remix-run/react";
+import { Link, useCatch, useFetcher, useLoaderData, useParams } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { generateResponse } from "~/utils/common";
 import { getReservations } from "~/models/reservations.server";
@@ -39,8 +39,20 @@ export async function loader({ request, params }: LoaderArgs) {
 }
 
 export default function ReservationsListPage() {
+  let { id } = useParams();
   const data = useLoaderData<typeof loader>();
+  const fetcher = useFetcher();
   const reservations = data?.data?.reservations || [];
+
+  const onClick = (id: any, reservation_id: any) => {
+    fetcher.submit({
+      id,
+      reservation_id
+    }, {
+      action: `/tables/cancel`,
+      method: "post"
+    });
+  };
   console.log(data);
   return (
     <Card>
@@ -67,7 +79,7 @@ export default function ReservationsListPage() {
                 <Td>{moment(entity.registerAt).format("MMMM Do YYYY, h:mm:ss a")}</Td>
                 <Td>{moment(entity.sitAt).format("MMMM Do YYYY, h:mm:ss a")}</Td>
                 <Td>
-                  <Button variant="solid" colorScheme="blue">
+                  <Button variant="solid" colorScheme="blue" onClick={onClick.bind(id, entity.id)}>
                     Cancel
                   </Button>
                 </Td>
