@@ -6,7 +6,7 @@ export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
   const id = formData.get("id") as string;
   const reservationId = formData.get("reservation_id") as string;
-  console.log(id, reservationId);
+  console.log(formData, id, reservationId);
   try {
     await cancelReservation(id, reservationId);
     return redirect(`/tables/${id}`);

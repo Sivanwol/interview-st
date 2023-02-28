@@ -45,6 +45,10 @@ export default function ReservationsListPage() {
   const reservations = data?.data?.reservations || [];
 
   const onClick = (id: any, reservation_id: any) => {
+    console.log({
+      id,
+      reservation_id
+    })
     fetcher.submit({
       id,
       reservation_id
@@ -53,7 +57,7 @@ export default function ReservationsListPage() {
       method: "post"
     });
   };
-  console.log(data);
+  console.log(JSON.stringify(data));
   return (
     <Card>
       <CardHeader>
@@ -79,7 +83,7 @@ export default function ReservationsListPage() {
                 <Td>{moment(entity.registerAt).format("MMMM Do YYYY, h:mm:ss a")}</Td>
                 <Td>{moment(entity.sitAt).format("MMMM Do YYYY, h:mm:ss a")}</Td>
                 <Td>
-                  <Button variant="solid" colorScheme="blue" onClick={onClick.bind(id, entity.id)}>
+                  <Button variant="solid" colorScheme="blue" onClick={() => onClick(id, entity.id)}>
                     Cancel
                   </Button>
                 </Td>

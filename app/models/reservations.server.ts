@@ -22,11 +22,7 @@ export async function getReservation(tableId: string, reservationId: string) {
   if (!(await tableExist(tableId))) throw new Error("invalid table id");
   return prisma.reservations.findFirstOrThrow({
     where: {
-      tableId,
       id: reservationId,
-      registerAt: {
-        gte: moment().toDate()
-      },
       cancelAt: null
     }
   });
