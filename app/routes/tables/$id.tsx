@@ -82,9 +82,6 @@ export default function ReservationsListPage() {
               Back
             </Button>
           </Link>
-          <Button variant="ghost" colorScheme="blue">
-            Cancel All Reservations
-          </Button>
         </ButtonGroup>
       </CardFooter>
     </Card>
