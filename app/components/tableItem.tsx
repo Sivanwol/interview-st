@@ -7,12 +7,16 @@ export function TableItem({
                           }: {
   item: Pick<tables, "id" | "size" | "type">
 }) {
-  return (<>
+  return (
     <UnorderedList>
       <ListItem>Table Type {item.type}</ListItem>
       <ListItem>Table Size {item.size}</ListItem>
-      <Link to={`/tables/${item.id}`}><Button>
-        Reservation
-      </Button></Link>
-    </UnorderedList></>);
+      <Link to={`/tables/${item.id}`}><Button variant="ghost">
+        Reservation List
+      </Button>
+      </Link>
+      <Button variant="ghost">
+        Make Reservation
+      </Button>
+    </UnorderedList>);
 };

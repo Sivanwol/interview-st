@@ -41,7 +41,7 @@ export default function TableIndexPage() {
           <Grid templateColumns="repeat(5, 1fr)" gap={6}>
 
             {(tableList?.tables?.length > 0) && tableList.tables.map((item: any) => (
-              <GridItem w="100%" h="100" bg="blue.500" key={item.id}>
+              <GridItem w="100%" h="150" bg="blue.500" key={item.id}>
                 <TableItem item={item} />
               </GridItem>))}
 
