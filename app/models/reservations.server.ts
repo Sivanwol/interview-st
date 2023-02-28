@@ -5,15 +5,17 @@ import { tableExist } from "~/models/table.server";
 
 
 export async function getReservations(tableId: string) {
-  return prisma.reservations.findMany({
+  const data = await prisma.reservations.findMany({
     where: {
       tableId,
       registerAt: {
-        gte: moment().toDate()
+        lt: moment().add(9, "hour").startOf("hour").toDate(),
+        gt: moment().startOf("hour").toDate()
       },
       cancelAt: null
     }
   });
+  return data;
 }
 
 export async function getReservation(tableId: string, reservationId: string) {

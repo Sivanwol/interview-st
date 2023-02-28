@@ -40,7 +40,8 @@ export async function loader({ request, params }: LoaderArgs) {
 
 export default function ReservationsListPage() {
   const data = useLoaderData<typeof loader>();
-
+  const reservations = data?.data?.reservations || [];
+  console.log(data);
   return (
     <Card>
       <CardHeader>
@@ -61,7 +62,7 @@ export default function ReservationsListPage() {
           </Thead>
           <Tbody>
 
-            {data?.reservations?.length > 0 ? data?.reservations?.map((entity: any) => (
+            {reservations.length > 0 ? reservations.map((entity: any) => (
               <Tr>
                 <Td>{moment(entity.registerAt).format("MMMM Do YYYY, h:mm:ss a")}</Td>
                 <Td>{moment(entity.sitAt).format("MMMM Do YYYY, h:mm:ss a")}</Td>
