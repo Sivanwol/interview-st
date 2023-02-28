@@ -1,9 +1,7 @@
 import { Link } from "@remix-run/react";
 
-import { useOptionalUser } from "~/utils";
 
 export default function Index() {
-  const user = useOptionalUser();
   return (
     <main className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
       <div className="relative sm:pb-16 sm:pt-8">
@@ -28,7 +26,7 @@ export default function Index() {
                   to="/tables"
                   className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-blue-700 shadow-sm hover:bg-blue-50 sm:px-8"
                 >
-                  View Table for {user.email}
+                  View Table
                 </Link>
 
               </div>
