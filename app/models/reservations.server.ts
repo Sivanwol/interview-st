@@ -34,7 +34,7 @@ export async function getReservation(tableId: string, reservationId: string) {
 export async function createReservation(tableId: string, reservationAt: Date, action: TableAction) {
   if (moment(reservationAt) < moment()) throw new Error("invalid date");
   if (!(await tableExist(tableId))) throw new Error("invalid table id");
-  return prisma.reservations.create({
+  await prisma.reservations.create({
     data: {
       tableId,
       registerAt: reservationAt,

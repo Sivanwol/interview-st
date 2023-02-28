@@ -9,11 +9,10 @@ export async function action({ request }: ActionArgs) {
 
   try {
     await createReservation(id, moment().toDate(), TableAction.SitAndLeave);
-    return json(generateResponse({}));
+    return redirect(`/tables/${id}`);
   } catch (e) {
     // @ts-ignore
     return json(generateResponse(null, e.toString()));
 
-    return redirect(`/tables/${id}`);
   }
 }
